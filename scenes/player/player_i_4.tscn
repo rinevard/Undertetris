@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0enparlqai47"]
 
 [ext_resource type="Script" uid="uid://bkwwqpwblpclu" path="res://scenes/player/player.gd" id="1_n70ld"]
-[ext_resource type="Texture2D" uid="uid://dp08dj5bedh1t" path="res://assets/art/origin_tetris/I4.png" id="2_iwl72"]
 [ext_resource type="PackedScene" uid="uid://1wdo66y1k8n7" path="res://scenes/player/player_i_3.tscn" id="2_ok737"]
+[ext_resource type="Texture2D" uid="uid://bfxl70n0hghhr" path="res://assets/art/player_tetris/PlayerI4.png" id="3_ok737"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwl72"]
-size = Vector2(8, 32)
+size = Vector2(7, 31)
 
 [node name="PlayerI4" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 6
@@ -16,14 +16,28 @@ remove_2 = ExtResource("2_ok737")
 remove_3 = ExtResource("2_ok737")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iwl72")
+texture = ExtResource("3_ok737")
 centered = false
 region_enabled = true
 region_rect = Rect2(8, 0, 8, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, 16)
+position = Vector2(3.5, 16.5)
 shape = SubResource("RectangleShape2D_iwl72")
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="CenterMarker" type="Marker2D" parent="."]
 position = Vector2(4, 16)
+
+[node name="TetrisMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 4)
+
+[node name="Marker2D2" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 12)
+
+[node name="Marker2D3" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 20)
+
+[node name="Marker2D4" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 28)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdg1w8tj4de8v"]
+
+[ext_resource type="Texture2D" uid="uid://c6uviyq1xvil2" path="res://assets/art/Bg.png" id="2_7lutn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o1nvc"]
+texture = ExtResource("2_7lutn")
+texture_region_size = Vector2i(10, 10)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_o1nvc"]
+tile_size = Vector2i(9, 9)
+sources/5 = SubResource("TileSetAtlasSource_o1nvc")
+
+[node name="LevelTileMapLayer" type="TileMapLayer"]
+tile_set = SubResource("TileSet_o1nvc")

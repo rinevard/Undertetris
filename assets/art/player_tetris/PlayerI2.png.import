@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l1bdq7mlya1o"
-path="res://.godot/imported/I1.png-ac04be48b4a6cbe71fa8ed70c5159e7b.ctex"
+uid="uid://nv2cdbm6vpfk"
+path="res://.godot/imported/PlayerI2.png-84999b525773f234f123d3cd82f066e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/derive_tetris/I1.png"
-dest_files=["res://.godot/imported/I1.png-ac04be48b4a6cbe71fa8ed70c5159e7b.ctex"]
+source_file="res://assets/art/player_tetris/PlayerI2.png"
+dest_files=["res://.godot/imported/PlayerI2.png-84999b525773f234f123d3cd82f066e3.ctex"]
 
 [params]
 

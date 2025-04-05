@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvlrofxxu1rrl"]
+
+[ext_resource type="Script" uid="uid://bb0qhf4vbmca8" path="res://scenes/tetris/origin_tetris/tetris.gd" id="1_ov45o"]
+[ext_resource type="Texture2D" uid="uid://dwb3bdf502asw" path="res://assets/art/derive_tetris/bridge2.png" id="2_ov45o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6r4lt"]
+size = Vector2(15, 7)
+
+[node name="TetrisBridge2" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 7
+lock_rotation = true
+script = ExtResource("1_ov45o")
+height = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ov45o")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.5, 4.5)
+shape = SubResource("RectangleShape2D_6r4lt")
+
+[node name="TetrisMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 4)
+
+[node name="Marker2D2" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(12, 4)

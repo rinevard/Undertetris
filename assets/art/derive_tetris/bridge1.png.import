@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4jxespj80mly"
-path="res://.godot/imported/I3.png-28960924b0fa838e1e0fabcb240a3f1f.ctex"
+uid="uid://d28f83yjwdb5o"
+path="res://.godot/imported/bridge1.png-20f9efadd43d1e18bb6e67f5c6b50345.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/derive_tetris/I3.png"
-dest_files=["res://.godot/imported/I3.png-28960924b0fa838e1e0fabcb240a3f1f.ctex"]
+source_file="res://assets/art/derive_tetris/bridge1.png"
+dest_files=["res://.godot/imported/bridge1.png-20f9efadd43d1e18bb6e67f5c6b50345.ctex"]
 
 [params]
 

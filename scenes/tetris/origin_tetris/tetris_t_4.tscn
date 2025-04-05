@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cydorp368rhir"]
+
+[ext_resource type="Texture2D" uid="uid://c8mmyfvv53gcy" path="res://assets/art/origin_tetris/T4.png" id="1_2orar"]
+[ext_resource type="Script" uid="uid://bb0qhf4vbmca8" path="res://scenes/tetris/origin_tetris/tetris.gd" id="1_58pdd"]
+[ext_resource type="PackedScene" uid="uid://c7512lrrl53ef" path="res://scenes/tetris/derive_tetris/tetris_bridge_3.tscn" id="2_8c0o6"]
+[ext_resource type="PackedScene" uid="uid://ciyhj4pls6213" path="res://scenes/tetris/derive_tetris/tetris_bridge_1.tscn" id="3_cbh3f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2orar"]
+size = Vector2(23, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58pdd"]
+size = Vector2(7, 8)
+
+[node name="TetrisT4" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 7
+lock_rotation = true
+script = ExtResource("1_58pdd")
+remove_0 = ExtResource("2_8c0o6")
+remove_1 = ExtResource("3_cbh3f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2orar")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 16, 24, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11.5, 4.5)
+shape = SubResource("RectangleShape2D_2orar")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(11.5, 12)
+shape = SubResource("RectangleShape2D_58pdd")
+
+[node name="TetrisMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(4, 4)
+
+[node name="Marker2D2" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(12, 4)
+
+[node name="Marker2D3" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(20, 4)
+
+[node name="Marker2D4" type="Marker2D" parent="TetrisMarkers"]
+position = Vector2(12, 12)
