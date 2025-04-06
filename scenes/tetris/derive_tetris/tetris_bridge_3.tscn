@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://bb0qhf4vbmca8" path="res://scenes/tetris/origin_tetris/tetris.gd" id="1_3opke"]
 [ext_resource type="Texture2D" uid="uid://cxu0b5dcvsd4e" path="res://assets/art/derive_tetris/bridge3.png" id="2_gtb2w"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtb2w"]
-size = Vector2(23, 7)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gtb2w"]
+radius = 4.0
+height = 24.0
 
 [node name="TetrisBridge3" type="RigidBody2D"]
 collision_layer = 0
@@ -20,8 +21,9 @@ region_enabled = true
 region_rect = Rect2(0, 16, 24, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(11.5, 4.5)
-shape = SubResource("RectangleShape2D_gtb2w")
+position = Vector2(12, 4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gtb2w")
 
 [node name="TetrisMarkers" type="Node2D" parent="."]
 

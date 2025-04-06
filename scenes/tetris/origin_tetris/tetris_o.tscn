@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://chfphged2rkq3"]
 
-[ext_resource type="Texture2D" path="res://assets/art/origin_tetris/O4.png" id="1_llhju"]
+[ext_resource type="Texture2D" uid="uid://dgu5vqjyvgytt" path="res://assets/art/origin_tetris/O4.png" id="1_llhju"]
 [ext_resource type="Script" uid="uid://bb0qhf4vbmca8" path="res://scenes/tetris/origin_tetris/tetris.gd" id="1_n6ajf"]
 [ext_resource type="PackedScene" uid="uid://bvlrofxxu1rrl" path="res://scenes/tetris/derive_tetris/tetris_bridge_2.tscn" id="2_km85r"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_llhju"]
-size = Vector2(15, 15)
+[sub_resource type="CircleShape2D" id="CircleShape2D_km85r"]
+radius = 8.0
 
 [node name="TetrisO" type="RigidBody2D"]
 collision_layer = 0
@@ -22,8 +22,8 @@ region_enabled = true
 region_rect = Rect2(0, 8, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7.5, 8.5)
-shape = SubResource("RectangleShape2D_llhju")
+position = Vector2(8, 8)
+shape = SubResource("CircleShape2D_km85r")
 
 [node name="TetrisMarkers" type="Node2D" parent="."]
 

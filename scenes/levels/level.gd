@@ -4,6 +4,7 @@ extends Node2D
 @onready var baker = $Baker
 @onready var moving_tetris: Node2D = $MovingTetris
 @onready var level_tile_map_layer: TileMapLayer = $LevelTileMapLayer
+const EXPLODE_JUICE = preload("res://scenes/juicy/explode_juice.tscn")
 
 ## 可以移动的 tetris 的所在格, tile -> tetris
 var movable_tetris_tiles: Dictionary = {} 
@@ -23,6 +24,7 @@ var grid_down: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AudioPlayer.play_music_start()
 	# 偏移 grid_bias 来保证落在 grid 内
 	left_bound += grid_bias
 	right_bound -= grid_bias
@@ -68,6 +70,7 @@ func check_tiles():
 	# 从下往上遍历每一行
 	for grid_y in range(grid_down, grid_up - 1, -1):
 		if check_line(grid_y):
+			SfxPlayer.play_remove()
 			return
 
 ## 检查 grid_y 那一行是否可以消除
@@ -82,15 +85,24 @@ func check_line(grid_y: int) -> bool:
 			continue
 		else: # 如果有空格, 返回 false, 不必 remove_line
 			return false
+	
+	# 更新 tile, 删掉这一行的所有 tile
+	for grid_x in range(grid_left, grid_right + 1):
+		var explode_juice = EXPLODE_JUICE.instantiate()
+		add_child(explode_juice)
+		var rel_pos = level_tile_map_layer.map_to_local(Vector2i(grid_x, grid_y))
+		var global_pos = level_tile_map_layer.to_global(rel_pos)
+		explode_juice.global_position = global_pos
+	
+	for grid_x in range(grid_left, grid_right + 1):
+		level_tile_map_layer.erase_cell(Vector2i(grid_x, grid_y))
+	
 	# 反查表, 调用 remove_line. 这里需要找到 grid_y 在其所有 grid 中的 line 位置
 	# 由于每个 tetris 必然是连续的, 我们 remove_line(grid_y - down_grid_y) 即可. 
 	for tetris in tetris_to_removeline:
 		var down_grid_y = tetris_down_grid_y[tetris]
 		tetris.remove_line(grid_y - down_grid_y)
-	
-	# 更新 tile, 删掉这一行的所有 tile
-	for grid_x in range(grid_left, grid_right + 1):
-		level_tile_map_layer.erase_cell(Vector2i(grid_x, grid_y))
+		
 	# 更新碰撞
 	baker.run_code()
 	return true

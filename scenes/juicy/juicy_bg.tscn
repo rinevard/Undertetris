@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mq6606gte64w"]
+
+[ext_resource type="Script" uid="uid://bgs4dr4be3dqi" path="res://scenes/juicy/juicy_bg.gd" id="1_m6x5n"]
+
+[node name="JuicyBg" type="Node2D"]
+script = ExtResource("1_m6x5n")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq0vgjld6ulud"]
+
+[ext_resource type="Texture2D" uid="uid://ivdchfa82cxt" path="res://assets/art/juice/white_box.png" id="1_brhxq"]
+[ext_resource type="Script" uid="uid://bf7a8iqwvsro1" path="res://scenes/juicy/explode_juice.gd" id="1_laqjs"]
+
+[node name="ExplodeJuice" type="Node2D"]
+script = ExtResource("1_laqjs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_brhxq")

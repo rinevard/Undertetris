@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://71q3ote3jjw5"]
+
+[ext_resource type="Texture2D" uid="uid://ivdchfa82cxt" path="res://assets/art/juice/white_box.png" id="1_o8s2r"]
+
+[node name="WhiteBox" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_o8s2r")
