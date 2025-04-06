@@ -1,5 +1,5 @@
 extends Level
-# level1
+# level2
 
 const PLAYER_I_4 = preload("res://scenes/player/player_i_4.tscn")
 var player_exists: bool = false

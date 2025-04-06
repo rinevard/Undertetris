@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://bgs4dr4be3dqi" path="res://scenes/juicy/juicy_bg.gd" id="1_m6x5n"]
 
 [node name="JuicyBg" type="Node2D"]
+modulate = Color(0.523316, 0.683287, 0.82037, 1)
 script = ExtResource("1_m6x5n")

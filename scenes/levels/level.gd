@@ -1,8 +1,9 @@
 class_name Level
 extends Node2D
 
-signal start_next_level()
-@export var next_level: Level = null
+signal start_next_level(old_level: Level, new_level: PackedScene)
+signal player_updated(new_player: Player)
+@export var next_level: PackedScene = null
 
 @onready var baker = $Baker
 @onready var moving_tetris: Node2D = $MovingTetris
@@ -47,7 +48,7 @@ func _ready():
 	# 设置碰撞
 	baker.run_code()
 
-var check_gap: float = 2.0
+var check_gap: float = 1.1
 func _process(delta):
 	if Globals.player_still_time > check_gap:
 		check_tiles()
@@ -64,7 +65,6 @@ func update_movable_tetris_tiles():
 			var map_pos = level_tile_map_layer.local_to_map(local_pos)
 			movable_tetris_tiles[map_pos] = tetris
 			tetris_down_grid_y[tetris] = max(map_pos.y, tetris_down_grid_y[tetris])
-	
 
 ## 本函数在玩家静止 1s 后被调用
 ## 从 down_bound 往上逐行检查, 消除任一行后结束
@@ -109,3 +109,8 @@ func check_line(grid_y: int) -> bool:
 	# 更新碰撞
 	baker.run_code()
 	return true
+
+func _on_player_updated(new_player: Player):
+	if not new_player.player_updated.is_connected(_on_player_updated):
+		new_player.player_updated.connect(_on_player_updated)
+	player_updated.emit(new_player)

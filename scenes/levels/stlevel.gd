@@ -12,6 +12,7 @@ func _input(event):
 	if not player_exists and event.is_action_pressed("enter"):
 		var player: Player = PLAYER_I_4.instantiate()
 		player.global_position = spawn_marker.global_position
+		player.player_updated.connect(_on_player_updated)
 		moving_tetris.add_child(player)
 		player_exists = true
 		label_enter.text = "AD←→"
@@ -29,4 +30,4 @@ func check_tiles():
 			return
 
 func _on_exit_area_body_entered(body):
-	start_next_level.emit()
+	start_next_level.emit(self, next_level)

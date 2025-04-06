@@ -1,8 +1,121 @@
-[gd_scene load_steps=2 format=3 uid="uid://wby4dieos8am"]
+[gd_scene load_steps=12 format=3 uid="uid://wby4dieos8am"]
 
-[ext_resource type="PackedScene" uid="uid://c7jqy8ejxtmq6" path="res://scenes/tetris/origin_tetris/tetris_L_4.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://dwyj0y7kud5k5" path="res://scenes/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://cqn332lgijeib" path="res://scenes/levels/stlevel.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cy6usvahy081d" path="res://scenes/UI/menu.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_tefeu"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="Animation" id="Animation_sugp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackMask:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
-[node name="Tetris_L_4" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(269, 83)
+[sub_resource type="Animation" id="Animation_0wfyh"]
+resource_name = "black_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackMask:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jyhfs"]
+resource_name = "black_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackMask:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sugp2"]
+_data = {
+&"RESET": SubResource("Animation_sugp2"),
+&"black_fade_in": SubResource("Animation_jyhfs"),
+&"black_fade_out": SubResource("Animation_0wfyh")
+}
+
+[sub_resource type="Resource" id="Resource_o6xl0"]
+script = ExtResource("5_tefeu")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("cur_level")]
+script = ExtResource("1_0wfyh")
+cur_packed_lecel = ExtResource("1_o5qli")
+cur_level = NodePath("StLevel")
+
+[node name="StLevel" parent="." instance=ExtResource("1_o5qli")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BlackMask" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_sugp2")
+}
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("3_sugp2")]
+visible = false
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("4_tbgi4")
+follow_mode = 5
+tween_resource = SubResource("Resource_o6xl0")
+tween_on_load = false
+dead_zone_width = 0.3
+dead_zone_height = 0.3
+draw_limits = true
+limit_left = 0
+limit_top = 0
+limit_right = 486
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 486
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_tefeu")
+
+[connection signal="need_quit" from="CanvasLayer/Menu" to="." method="_on_menu_need_quit"]
+[connection signal="need_restart" from="CanvasLayer/Menu" to="." method="_on_menu_need_restart"]

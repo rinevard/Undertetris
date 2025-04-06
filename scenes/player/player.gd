@@ -33,6 +33,7 @@ func _input(event):
 
 func _ready():
 	get_tree().create_timer(cooldown_to_change).timeout.connect(_set_changable_true)
+	player_updated.emit(self)
 
 func _set_changable_true():
 	changable = true

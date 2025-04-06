@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy6usvahy081d"]
+
+[ext_resource type="Theme" uid="uid://5v6fwy3k7vyy" path="res://resource/buttontheme.tres" id="1_2tfbb"]
+[ext_resource type="Script" uid="uid://cr5d1exjn5r1d" path="res://scenes/UI/menu.gd" id="1_2un8v"]
+[ext_resource type="FontFile" uid="uid://b8qhse0bp26te" path="res://assets/fonts/Roboto-VariableFont_wdth,wght.ttf" id="1_u81ku"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2un8v")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0886507, 0.234861, 0.350424, 0.513726)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(80, 28)
+layout_mode = 2
+theme = ExtResource("1_2tfbb")
+theme_override_fonts/font = ExtResource("1_u81ku")
+theme_override_font_sizes/font_size = 18
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(80, 28)
+layout_mode = 2
+theme = ExtResource("1_2tfbb")
+theme_override_fonts/font = ExtResource("1_u81ku")
+theme_override_font_sizes/font_size = 18
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(80, 28)
+layout_mode = 2
+theme = ExtResource("1_2tfbb")
+theme_override_fonts/font = ExtResource("1_u81ku")
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://cr40uou7xp0e5"]
+
+[ext_resource type="Script" uid="uid://f12qi4o8ejau" path="res://scenes/levels/final_level.gd" id="1_awmdc"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_jgn2k"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_61xx6"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_61xx6"]
+[ext_resource type="PackedScene" uid="uid://mq6606gte64w" path="res://scenes/juicy/juicy_bg.tscn" id="5_vmyuh"]
+[ext_resource type="Texture2D" uid="uid://bfajmbdk87mik" path="res://assets/art/bgcolor.png" id="6_bks8w"]
+[ext_resource type="Script" uid="uid://dnn1gotw1q43v" path="res://tricks/TilemapCollisionBaker.gd" id="7_e446s"]
+[ext_resource type="PackedScene" uid="uid://bdg1w8tj4de8v" path="res://scenes/level_tile_map_layer.tscn" id="7_ifx55"]
+
+[sub_resource type="Resource" id="Resource_vmyuh"]
+script = ExtResource("3_61xx6")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="FinalLevel" type="Node2D"]
+script = ExtResource("1_awmdc")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+position = Vector2(243, 140)
+script = ExtResource("2_jgn2k")
+follow_mode = 5
+tween_resource = SubResource("Resource_vmyuh")
+dead_zone_width = 0.3
+dead_zone_height = 0.3
+draw_limits = true
+limit_left = 0
+limit_top = 0
+limit_right = 486
+limit_bottom = 850
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="SpawnMarker" type="Marker2D" parent="."]
+position = Vector2(248, -60)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(61, 110)
+texture = ExtResource("6_bks8w")
+centered = false
+
+[node name="JuicyBg" parent="." instance=ExtResource("5_vmyuh")]
+
+[node name="LevelTileMapLayer" parent="." instance=ExtResource("7_ifx55")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("7_e446s")
+tilemap_nodepath = NodePath("../LevelTileMapLayer")
+
+[node name="MovingTetris" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(243, 140)
+limit_left = 0
+limit_top = 0
+limit_right = 486
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("4_61xx6")

@@ -31,6 +31,7 @@ func set_boundary(rect: Rect2):
 	boundary = rect
 
 func _ready():
+	boundary = Rect2(Vector2(-20, -20), scene_size + Vector2(40, 40))
 	randomize()
 	for i in range(BOX_COUNT):
 		spawn_box()
