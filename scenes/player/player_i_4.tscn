@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0enparlqai47"]
+[gd_scene load_steps=6 format=3 uid="uid://d0enparlqai47"]
 
 [ext_resource type="Script" uid="uid://bkwwqpwblpclu" path="res://scenes/player/player.gd" id="1_n70ld"]
 [ext_resource type="PackedScene" uid="uid://1wdo66y1k8n7" path="res://scenes/player/player_i_3.tscn" id="2_ok737"]
 [ext_resource type="Texture2D" uid="uid://bfxl70n0hghhr" path="res://assets/art/player_tetris/PlayerI4.png" id="3_ok737"]
+[ext_resource type="PackedScene" uid="uid://0oc5ggeu2o8g" path="res://scenes/juicy/walk_particle.tscn" id="4_img7b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwl72"]
 size = Vector2(7, 31.5)
@@ -21,12 +22,18 @@ centered = false
 region_enabled = true
 region_rect = Rect2(8, 0, 8, 32)
 
+[node name="WalkParticle" parent="Sprite2D" instance=ExtResource("4_img7b")]
+position = Vector2(4, 31)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 16)
 shape = SubResource("RectangleShape2D_iwl72")
 
 [node name="CenterMarker" type="Marker2D" parent="."]
 position = Vector2(4, 16)
+
+[node name="MoveParticleMarker" type="Marker2D" parent="."]
+position = Vector2(4, 31)
 
 [node name="TetrisMarkers" type="Node2D" parent="."]
 

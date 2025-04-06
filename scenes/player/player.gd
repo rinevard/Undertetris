@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
+@onready var move_particle_marker: Marker2D = $MoveParticleMarker
 @onready var sprite_2d = $Sprite2D
+@onready var walk_particle = $Sprite2D/WalkParticle
 
 @export var SPEED: float = 80.0
 @export var MAX_Y_SPEED: float = 300.0
@@ -88,7 +90,7 @@ func _physics_process(delta):
 	# 着地时恢复正常形状
 	if is_on_floor():
 		sprite_2d.scale = sprite_2d.scale.lerp(Vector2(1, 1), delta * 100)
-
+	walk_particle.emitting = false
 	# Get the input direction and handle the movement/deceleration
 	var direction = Input.get_axis("left", "right")
 	if direction:
@@ -96,11 +98,11 @@ func _physics_process(delta):
 		sprite_2d.flip_v = (direction < 0 and is_rotated)
 		velocity.x = direction * SPEED
 		last_direction = sign(velocity.x)  # 获取最后移动方向（1 或 -1）
-		
+		if is_on_floor() and (height == 1 or not is_rotated):
+			walk_particle.emitting = true
 		# 走路时的倾斜效果
-		var target_rotation = direction * 0.03 if not is_rotated else abs(direction * 0.03)
-		sprite_2d.rotation = lerp(sprite_2d.rotation, target_rotation, delta * 10)
-		
+		#var target_rotation = direction * 0.11 if not is_rotated else abs(direction * 0.11)
+		#sprite_2d.rotation = lerp(sprite_2d.rotation, target_rotation, delta * 10)
 		for i in get_slide_collision_count():
 			var c = get_slide_collision(i)
 			if c.get_collider() is RigidBody2D:
