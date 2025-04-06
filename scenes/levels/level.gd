@@ -92,10 +92,10 @@ func check_line(grid_y: int) -> bool:
 	# 更新 tile, 删掉这一行的所有 tile
 	for grid_x in range(grid_left, grid_right + 1):
 		var explode_juice = EXPLODE_JUICE.instantiate()
-		add_child(explode_juice)
 		var rel_pos = level_tile_map_layer.map_to_local(Vector2i(grid_x, grid_y))
 		var global_pos = level_tile_map_layer.to_global(rel_pos)
 		explode_juice.global_position = global_pos
+		add_child(explode_juice)
 	
 	for grid_x in range(grid_left, grid_right + 1):
 		level_tile_map_layer.erase_cell(Vector2i(grid_x, grid_y))

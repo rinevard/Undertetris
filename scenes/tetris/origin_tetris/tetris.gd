@@ -56,9 +56,9 @@ func remove_line(line: int) -> void:
 	
 	assert(new_scene, "new scnene doesn't exist!")
 	var rest_tetris: Tetris = new_scene.instantiate()
+	rest_tetris.global_position = head_global_pos
 	
 	get_parent().add_child(rest_tetris)
-	rest_tetris.global_position = head_global_pos
 	
 	call_deferred("queue_free")
 

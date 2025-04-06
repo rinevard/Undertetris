@@ -10,7 +10,7 @@ var player_exists: bool = false
 
 func _input(event):
 	if not player_exists and event.is_action_pressed("enter"):
-		var player = PLAYER_I_4.instantiate()
+		var player: Player = PLAYER_I_4.instantiate()
 		player.global_position = spawn_marker.global_position
 		moving_tetris.add_child(player)
 		player_exists = true
@@ -30,4 +30,3 @@ func check_tiles():
 
 func _on_exit_area_body_entered(body):
 	start_next_level.emit()
-	print(1)

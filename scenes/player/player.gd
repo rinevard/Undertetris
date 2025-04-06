@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal player_updated(new_player: Player)
+
 @onready var sprite_2d = $Sprite2D
 @onready var walk_particle: GPUParticles2D = $Sprite2D/WalkParticle
 
@@ -51,9 +53,10 @@ func remove_line(line: int) -> void:
 		head_global_pos = global_position
 	
 	var rest_player: Player = remove_0.instantiate()
-	get_parent().add_child(rest_player)
 	rest_player.global_position = head_global_pos
 	rest_player.velocity = velocity
+	get_parent().add_child(rest_player)
+	player_updated.emit(rest_player)
 
 	call_deferred("queue_free")
 

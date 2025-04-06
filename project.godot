@@ -22,6 +22,7 @@ WalkSfxPlayer="*res://globals/WalkSfxPlayer.tscn"
 RemoveSfxPlayer="*res://globals/remove_sfx_player.tscn"
 JumpAudioPlayer="*res://globals/JumpAudioPlayer.tscn"
 RotateAudioPlayer="*res://globals/RotateAudioPlayer.tscn"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
 
@@ -29,6 +30,10 @@ window/size/viewport_width=486
 window/size/viewport_height=280
 window/size/mode=4
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
@@ -68,6 +73,7 @@ esc={
 [physics]
 
 2d/default_gravity=400.0
+common/physics_interpolation=true
 
 [rendering]
 
