@@ -1,12 +1,12 @@
 class_name Player
 extends CharacterBody2D
-@onready var move_particle_marker: Marker2D = $MoveParticleMarker
+
 @onready var sprite_2d = $Sprite2D
-@onready var walk_particle = $Sprite2D/WalkParticle
+@onready var walk_particle: GPUParticles2D = $Sprite2D/WalkParticle
 
 @export var SPEED: float = 80.0
 @export var MAX_Y_SPEED: float = 300.0
-@export var JUMP_VELOCITY: float = -200.0
+@export var JUMP_VELOCITY: float = -150.0
 @export var push_force: float = 15.0
 
 var last_direction = 1 # 移动对齐
@@ -61,7 +61,7 @@ func rotate_player() -> void:
 	if not changable:
 		return
 	is_rotated = !is_rotated
-	
+	RotateAudioPlayer.play_rotate_sfx()
 	var center = center_marker.global_position
 	var offset = global_position - center
 	var target_angle = deg_to_rad(90) if is_rotated else 0	
@@ -81,12 +81,14 @@ func _physics_process(delta):
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		JumpAudioPlayer.play_jump_sfx()
 		# 起跳时的挤压效果
 		var tween = create_tween()
 		tween.tween_property(sprite_2d, "scale", Vector2(1.2, 0.8), 0.1)
 		tween.tween_property(sprite_2d, "scale", Vector2(0.8, 1.2), 0.1)
 		tween.tween_property(sprite_2d, "scale", Vector2(1, 1), 0.1)
 	
+	var need_walk_sfx = false
 	# 着地时恢复正常形状
 	if is_on_floor():
 		sprite_2d.scale = sprite_2d.scale.lerp(Vector2(1, 1), delta * 100)
@@ -98,11 +100,15 @@ func _physics_process(delta):
 		sprite_2d.flip_v = (direction < 0 and is_rotated)
 		velocity.x = direction * SPEED
 		last_direction = sign(velocity.x)  # 获取最后移动方向（1 或 -1）
-		if is_on_floor() and (height == 1 or not is_rotated):
-			walk_particle.emitting = true
+		if is_on_floor():
+			need_walk_sfx = true
+			if not is_rotated:
+				var new_direction = Vector3(1 if (direction < 0 and not is_rotated) else -1, 0, 0)
+				walk_particle.process_material.set("direction", new_direction)
+				walk_particle.emitting = true
 		# 走路时的倾斜效果
-		#var target_rotation = direction * 0.11 if not is_rotated else abs(direction * 0.11)
-		#sprite_2d.rotation = lerp(sprite_2d.rotation, target_rotation, delta * 10)
+		var target_rotation = direction * 0.11 if not is_rotated else abs(direction * 0.11)
+		sprite_2d.rotation = lerp(sprite_2d.rotation, target_rotation, delta * 10)
 		for i in get_slide_collision_count():
 			var c = get_slide_collision(i)
 			if c.get_collider() is RigidBody2D:
@@ -113,6 +119,10 @@ func _physics_process(delta):
 		# 站立时恢复直立
 		sprite_2d.rotation = lerp(sprite_2d.rotation, 0.0, delta * 10)
 
+	if need_walk_sfx:
+		WalkSfxPlayer.play_walk_sfx()
+	else:
+		WalkSfxPlayer.stop()
 	velocity.y = MAX_Y_SPEED if velocity.y > MAX_Y_SPEED else velocity.y
 	if velocity == Vector2.ZERO:
 		Globals.player_still_time += delta

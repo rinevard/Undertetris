@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dswl4cnsk8j1h"]
+[gd_scene load_steps=5 format=3 uid="uid://dswl4cnsk8j1h"]
 
 [ext_resource type="Script" uid="uid://bkwwqpwblpclu" path="res://scenes/player/player.gd" id="1_p3gvp"]
 [ext_resource type="Texture2D" uid="uid://bwjj4xd3pt3wi" path="res://assets/art/player_tetris/PlayerI1.png" id="2_p3gvp"]
+[ext_resource type="PackedScene" uid="uid://0oc5ggeu2o8g" path="res://scenes/juicy/walk_particle.tscn" id="3_dwco6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylema"]
 size = Vector2(7.5, 7.5)
@@ -16,6 +17,9 @@ texture = ExtResource("2_p3gvp")
 centered = false
 region_enabled = true
 region_rect = Rect2(8, 0, 8, 8)
+
+[node name="WalkParticle" parent="Sprite2D" instance=ExtResource("3_dwco6")]
+position = Vector2(4, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 4)

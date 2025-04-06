@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy38y1mdtl3r1"]
+
+[ext_resource type="Script" uid="uid://cay5p3gux7ii4" path="res://globals/walk_sfx_player.gd" id="2_y62es"]
+
+[node name="WalkSfxPlayer" type="AudioStreamPlayer"]
+volume_db = -10.0
+script = ExtResource("2_y62es")

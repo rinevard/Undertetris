@@ -3,7 +3,7 @@ extends AudioStreamPlayer
 const BGM = preload("res://assets/music/origin_1.wav")
 
 func play_music(music: AudioStream):
-	if stream == music:
+	if stream == music and playing:
 		return
 	
 	stream = music

@@ -1,6 +1,9 @@
 class_name Level
 extends Node2D
 
+signal start_next_level()
+@export var next_level: Level = null
+
 @onready var baker = $Baker
 @onready var moving_tetris: Node2D = $MovingTetris
 @onready var level_tile_map_layer: TileMapLayer = $LevelTileMapLayer
@@ -70,7 +73,7 @@ func check_tiles():
 	# 从下往上遍历每一行
 	for grid_y in range(grid_down, grid_up - 1, -1):
 		if check_line(grid_y):
-			SfxPlayer.play_remove()
+			RemoveSfxPlayer.play_remove()
 			return
 
 ## 检查 grid_y 那一行是否可以消除

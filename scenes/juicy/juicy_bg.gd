@@ -3,7 +3,7 @@ extends Node2D
 const WHITE_BOX = preload("res://scenes/juicy/white_box.tscn")
 
 # 方块数量
-const BOX_COUNT = 100
+@export var BOX_COUNT = 100
 
 # 方块运动参数
 const MIN_VELOCITY = -17  # 最小速度
@@ -20,7 +20,7 @@ const MIN_ALPHA = 0.2     # 最小透明度
 const MAX_ALPHA = 0.7     # 最大透明度
 
 var boxes = []
-var scene_size = Vector2(486, 280 * 4)  # 场景尺寸
+@export var scene_size = Vector2(486, 280 * 4)  # 场景尺寸
 var boundary = Rect2(Vector2(-20, -20), scene_size + Vector2(40, 40))  # 碰撞边界
 
 func set_scene_size(size: Vector2):

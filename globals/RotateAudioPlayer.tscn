@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://trynmis3awbj"]
+
+[ext_resource type="Script" uid="uid://bbxrhy40shxgp" path="res://globals/rotate_audio_player.gd" id="1_hwdhu"]
+
+[node name="RotateAudioPlayer" type="AudioStreamPlayer"]
+script = ExtResource("1_hwdhu")
