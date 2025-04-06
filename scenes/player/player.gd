@@ -73,6 +73,8 @@ func rotate_player() -> void:
 	global_position = center + offset
 	rotation = target_angle
 
+var wolf_jump_time: float = 0.15
+var in_space_time: float = 0.0
 func _physics_process(delta):
 	# Add the gravity
 	if not is_on_floor():
@@ -81,9 +83,10 @@ func _physics_process(delta):
 		var jump_progress = abs(velocity.y) / abs(JUMP_VELOCITY)
 		sprite_2d.scale.y = 1.0 + 0.2 * jump_progress
 		sprite_2d.scale.x = 1.0 - 0.1 * jump_progress
+		in_space_time += delta
 
 	# Handle jump
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or in_space_time < wolf_jump_time):
 		velocity.y = JUMP_VELOCITY
 		JumpAudioPlayer.play_jump_sfx()
 		# 起跳时的挤压效果
@@ -96,6 +99,7 @@ func _physics_process(delta):
 	# 着地时恢复正常形状
 	if is_on_floor():
 		sprite_2d.scale = sprite_2d.scale.lerp(Vector2(1, 1), delta * 100)
+		in_space_time = 0.0
 	walk_particle.emitting = false
 	# Get the input direction and handle the movement/deceleration
 	var direction = Input.get_axis("left", "right")

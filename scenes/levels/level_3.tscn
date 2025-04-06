@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx84y34keu66n"]
+
+[ext_resource type="Script" uid="uid://cu8t4llacljef" path="res://scenes/levels/level_3.gd" id="1_fmg3e"]
+[ext_resource type="Texture2D" uid="uid://bfajmbdk87mik" path="res://assets/art/bgcolor.png" id="2_ftfob"]
+[ext_resource type="PackedScene" uid="uid://mq6606gte64w" path="res://scenes/juicy/juicy_bg.tscn" id="3_fkk1g"]
+[ext_resource type="PackedScene" uid="uid://bdg1w8tj4de8v" path="res://scenes/level_tile_map_layer.tscn" id="4_ugcn1"]
+[ext_resource type="Script" uid="uid://dnn1gotw1q43v" path="res://tricks/TilemapCollisionBaker.gd" id="5_pimnq"]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_fmg3e")
+
+[node name="SpawnMarker" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(61, 110)
+texture = ExtResource("2_ftfob")
+centered = false
+
+[node name="JuicyBg" parent="." instance=ExtResource("3_fkk1g")]
+
+[node name="LevelTileMapLayer" parent="." instance=ExtResource("4_ugcn1")]
+
+[node name="Baker" type="StaticBody2D" parent="."]
+script = ExtResource("5_pimnq")
+tilemap_nodepath = NodePath("../LevelTileMapLayer")
+
+[node name="MovingTetris" type="Node2D" parent="."]
+
+[node name="ExitArea" type="Area2D" parent="."]
