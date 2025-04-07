@@ -15,7 +15,7 @@ func _input(event):
 		player.player_updated.connect(_on_player_updated)
 		moving_tetris.add_child(player)
 		player_exists = true
-		label_enter.text = "AD←→"
+		label_enter.text = " AD<->"
 		labelstgame.text = "Move"
 
 func check_tiles():
