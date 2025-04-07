@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://cr40uou7xp0e5"]
+[gd_scene load_steps=13 format=4 uid="uid://cr40uou7xp0e5"]
 
 [ext_resource type="Script" uid="uid://f12qi4o8ejau" path="res://scenes/levels/final_level.gd" id="1_awmdc"]
+[ext_resource type="Texture2D" uid="uid://dgyjh41fxrwa0" path="res://assets/art/tetrisbg/bgwithchara.png" id="4_ve0j8"]
 [ext_resource type="PackedScene" uid="uid://mq6606gte64w" path="res://scenes/juicy/juicy_bg.tscn" id="5_vmyuh"]
 [ext_resource type="Texture2D" uid="uid://bfajmbdk87mik" path="res://assets/art/bgcolor.png" id="6_bks8w"]
 [ext_resource type="PackedScene" uid="uid://chfphged2rkq3" path="res://scenes/tetris/origin_tetris/tetris_o.tscn" id="6_ifx55"]
@@ -32,6 +33,10 @@ scale = Vector2(1, 3)
 texture = ExtResource("7_jwk10")
 centered = false
 metadata/_edit_lock_ = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+texture = ExtResource("4_ve0j8")
+centered = false
 
 [node name="JuicyBg" parent="." instance=ExtResource("5_vmyuh")]
 position = Vector2(119, 0)
@@ -90,3 +95,26 @@ position = Vector2(127, 28)
 
 [node name="TetrisBridge2" parent="MovingTetris" instance=ExtResource("10_rqhej")]
 position = Vector2(280, 45)
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="LabelScore" type="Label" parent="Labels"]
+offset_left = 377.0
+offset_top = 61.0
+offset_right = 438.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_rqhej")
+theme_override_font_sizes/font_size = 18
+text = " SCORE
+ "
+
+[node name="LabelScoreNum" type="Label" parent="Labels"]
+offset_left = 380.0
+offset_top = 82.0
+offset_right = 441.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_rqhej")
+theme_override_font_sizes/font_size = 18
+text = "999979"
