@@ -17,7 +17,7 @@ script = ExtResource("1_6761a")
 next_level = ExtResource("2_excbq")
 
 [node name="SpawnMarker" type="Marker2D" parent="."]
-position = Vector2(67, -43)
+position = Vector2(69, -36)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(61, 110)

@@ -5,6 +5,9 @@ signal player_updated(new_player: Player)
 
 @onready var sprite_2d = $Sprite2D
 @onready var walk_particle: GPUParticles2D = $Sprite2D/WalkParticle
+@onready var rotate_collision_area: Area2D = $RotateCollisionArea
+@onready var rotate_collision_area_right: Area2D = $RotateCollisionAreaRight
+@onready var rotate_collision_area_left: Area2D = $RotateCollisionAreaLeft
 
 @export var SPEED: float = 80.0
 @export var MAX_Y_SPEED: float = 300.0
@@ -22,6 +25,8 @@ var last_direction = 1 # 移动对齐
 
 var is_rotated: bool = false
 @onready var center_marker: Marker2D = $CenterMarker
+@onready var right_marker: Marker2D = $RightMarker
+@onready var left_marker: Marker2D = $LeftMarker
 @onready var tetris_markers: Node2D = $TetrisMarkers
 
 var changable: bool = false # remove or rotate
@@ -64,13 +69,28 @@ func remove_line(line: int) -> void:
 func rotate_player() -> void:
 	if not changable:
 		return
+	
+	var left_rotate_collision_cnt = rotate_collision_area_left.get_overlapping_bodies().size()
+	var right_rotate_collision_cnt = rotate_collision_area_right.get_overlapping_bodies().size()
+	var center_rotate_collision_cnt = rotate_collision_area.get_overlapping_bodies().size()
+	var center = center_marker.global_position # 根据旋转目的地选择marker
+	var new_center = center_marker.global_position
+	if center_rotate_collision_cnt == 0:
+		new_center = center_marker.global_position
+	elif left_rotate_collision_cnt == 0:
+		new_center = left_marker.global_position
+	elif right_rotate_collision_cnt == 0:
+		new_center = right_marker.global_position
+	else:
+		$AnimationPlayer.play("CannotRotate")
+		return
+	
 	is_rotated = !is_rotated
 	RotateAudioPlayer.play_rotate_sfx()
-	var center = center_marker.global_position
 	var offset = global_position - center
 	var target_angle = deg_to_rad(90) if is_rotated else 0	
 	offset = offset.rotated(target_angle - rotation)
-	global_position = center + offset
+	global_position = new_center + offset
 	rotation = target_angle
 
 var wolf_jump_time: float = 0.15

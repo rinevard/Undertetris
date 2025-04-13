@@ -1,12 +1,52 @@
-[gd_scene load_steps=6 format=3 uid="uid://oqc65mnvivfr"]
+[gd_scene load_steps=11 format=3 uid="uid://oqc65mnvivfr"]
 
 [ext_resource type="Script" uid="uid://bkwwqpwblpclu" path="res://scenes/player/player.gd" id="1_pyffj"]
 [ext_resource type="PackedScene" uid="uid://dswl4cnsk8j1h" path="res://scenes/player/player_i_1.tscn" id="2_ii688"]
 [ext_resource type="Texture2D" uid="uid://nv2cdbm6vpfk" path="res://assets/art/player_tetris/PlayerI2.png" id="3_pyffj"]
 [ext_resource type="PackedScene" uid="uid://0oc5ggeu2o8g" path="res://scenes/juicy/walk_particle.tscn" id="4_ii688"]
+[ext_resource type="Texture2D" uid="uid://iym0s6k7lnav" path="res://assets/art/tiles/tiles.png" id="5_oybvu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_om6bo"]
 size = Vector2(7, 15.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ii688"]
+size = Vector2(14, 6)
+
+[sub_resource type="Animation" id="Animation_oybvu"]
+resource_name = "CannotRotate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotateCollisionArea/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.501961), Color(1, 0, 0, 0), Color(1, 0, 0, 0.501961), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ry8nb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotateCollisionArea/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ry8nb"]
+_data = {
+&"CannotRotate": SubResource("Animation_oybvu"),
+&"RESET": SubResource("Animation_ry8nb")
+}
 
 [node name="Player_I_2" type="CharacterBody2D"]
 collision_mask = 6
@@ -33,6 +73,12 @@ shape = SubResource("RectangleShape2D_om6bo")
 [node name="CenterMarker" type="Marker2D" parent="."]
 position = Vector2(4, 8)
 
+[node name="RightMarker" type="Marker2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="LeftMarker" type="Marker2D" parent="."]
+position = Vector2(0, 8)
+
 [node name="TetrisMarkers" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="TetrisMarkers"]
@@ -40,3 +86,59 @@ position = Vector2(4, 4)
 
 [node name="Marker2D2" type="Marker2D" parent="TetrisMarkers"]
 position = Vector2(4, 12)
+
+[node name="RotateCollisionArea" type="Area2D" parent="."]
+position = Vector2(4, 8)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotateCollisionArea"]
+shape = SubResource("RectangleShape2D_ii688")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RotateCollisionArea"]
+modulate = Color(1, 0, 0, 0)
+position = Vector2(9.53674e-07, -2.38419e-07)
+scale = Vector2(1.75, 0.75)
+texture = ExtResource("5_oybvu")
+region_enabled = true
+region_rect = Rect2(31, 1, 8, 8)
+
+[node name="RotateCollisionAreaRight" type="Area2D" parent="."]
+position = Vector2(8, 8)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotateCollisionAreaRight"]
+shape = SubResource("RectangleShape2D_ii688")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RotateCollisionAreaRight"]
+modulate = Color(1, 0, 0, 0)
+position = Vector2(9.53674e-07, -2.38419e-07)
+scale = Vector2(1.75, 0.75)
+texture = ExtResource("5_oybvu")
+region_enabled = true
+region_rect = Rect2(31, 1, 8, 8)
+
+[node name="RotateCollisionAreaLeft" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotateCollisionAreaLeft"]
+shape = SubResource("RectangleShape2D_ii688")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RotateCollisionAreaLeft"]
+modulate = Color(1, 0, 0, 0)
+position = Vector2(9.53674e-07, -2.38419e-07)
+scale = Vector2(1.75, 0.75)
+texture = ExtResource("5_oybvu")
+region_enabled = true
+region_rect = Rect2(31, 1, 8, 8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ry8nb")
+}
